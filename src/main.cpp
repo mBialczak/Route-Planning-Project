@@ -62,6 +62,8 @@ int main(int argc, const char **argv) {
   float start_y = get_user_input("start Y");
   float end_x = get_user_input("end X");
   float end_y = get_user_input("end Y");
+  std::cout << "start: " << start_x << ", " << start_y << std::endl;
+  std::cout << "end: " << end_x << ", " << end_y << std::endl;
 
   // Build Model.
   RouteModel model{osm_data};
