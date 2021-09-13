@@ -10,24 +10,9 @@
 
 using namespace std::experimental;
 
-static std::optional<std::vector<std::byte>> ReadFile(const std::string &path) {
-  std::ifstream is{path, std::ios::binary | std::ios::ate};
-  if (!is)
-    return std::nullopt;
-
-  auto size = is.tellg();
-  std::vector<std::byte> contents(size);
-
-  is.seekg(0);
-  is.read((char *)contents.data(), size);
-
-  if (contents.empty())
-    return std::nullopt;
-  return std::move(contents);
-}
 //-- Main heleper functions declarations----------------------
-float get_user_input(
-    const std::string &coordinate); // get user input for single coordinate
+static std::optional<std::vector<std::byte>> ReadFile(const std::string &path);
+float get_user_input(const std::string &coordinate);
 
 int main(int argc, const char **argv) {
   std::string osm_data_file = "";
@@ -106,4 +91,20 @@ float get_user_input(const std::string &coordinate) {
   } while (val < 0.0f || val > 100.0f);
 
   return val;
+}
+
+static std::optional<std::vector<std::byte>> ReadFile(const std::string &path) {
+  std::ifstream is{path, std::ios::binary | std::ios::ate};
+  if (!is)
+    return std::nullopt;
+
+  auto size = is.tellg();
+  std::vector<std::byte> contents(size);
+
+  is.seekg(0);
+  is.read((char *)contents.data(), size);
+
+  if (contents.empty())
+    return std::nullopt;
+  return std::move(contents);
 }
