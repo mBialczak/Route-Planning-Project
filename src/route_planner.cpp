@@ -10,17 +10,14 @@ RoutePlanner::RoutePlanner(RouteModel &model, float start_x, float start_y,
   end_x *= 0.01;
   end_y *= 0.01;
 
-  // TODO 2:
   start_node = &m_Model.FindClosestNode(start_x, start_y);
   end_node = &m_Model.FindClosestNode(end_x, end_y);
 }
 
-// TODO 3:
 float RoutePlanner::CalculateHValue(RouteModel::Node const *node) {
   return node->distance(*end_node);
 }
 
-// TODO 4:
 void RoutePlanner::AddNeighbors(RouteModel::Node *current_node) {
   current_node->FindNeighbors();
   for (auto neighbour : current_node->neighbors) {
@@ -29,14 +26,13 @@ void RoutePlanner::AddNeighbors(RouteModel::Node *current_node) {
       neighbour->g_value =
           current_node->g_value + neighbour->distance(*current_node);
       neighbour->h_value = CalculateHValue(neighbour);
-      AddToOpen(neighbour); // adds to open_list and sets visited = true;
+      open_list.emplace_back(neighbour);
+      neighbour->visited = true;
     }
   }
 }
 
-// TODO 5: the NextNode method:
-//- sorts the open list
-//- returns the node the next node with the lowest f-value (g + h)
+// returns the node the next node with the lowest f-value (g + h)
 RouteModel::Node *RoutePlanner::NextNode() {
   std::sort(open_list.begin(), open_list.end(),
             [](const RouteModel::Node *node1, const RouteModel::Node *node2) {
@@ -49,12 +45,6 @@ RouteModel::Node *RoutePlanner::NextNode() {
   return best;
 }
 
-void RoutePlanner::AddToOpen(RouteModel::Node *node) {
-  open_list.emplace_back(node);
-  node->visited = true;
-}
-
-// TODO 6:
 std::vector<RouteModel::Node>
 RoutePlanner::ConstructFinalPath(RouteModel::Node *current_node) {
   // Create path_found vector
@@ -67,7 +57,6 @@ RoutePlanner::ConstructFinalPath(RouteModel::Node *current_node) {
     distance += current_node->distance(*(current_node->parent));
     current_node = current_node->parent;
   }
-  // need to add starting node to the path as well
   path_found.emplace_back(*start_node);
   // put the returned vector in the correct order
   std::reverse(path_found.begin(), path_found.end());
@@ -76,10 +65,10 @@ RoutePlanner::ConstructFinalPath(RouteModel::Node *current_node) {
   return path_found;
 }
 
-// TODO 7:
 void RoutePlanner::AStarSearch() {
   RouteModel::Node *current_node = start_node;
-  AddToOpen(current_node);
+  open_list.emplace_back(current_node);
+  current_node->visited = true;
 
   while (!open_list.empty()) {
     if (current_node == end_node) {

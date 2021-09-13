@@ -25,8 +25,7 @@ static std::optional<std::vector<std::byte>> ReadFile(const std::string &path) {
     return std::nullopt;
   return std::move(contents);
 }
-//--------- Main heleper functions
-// declarations---------------------------------------
+//-- Main heleper functions declarations----------------------
 float get_user_input(
     const std::string &coordinate); // get user input for single coordinate
 
@@ -55,7 +54,6 @@ int main(int argc, const char **argv) {
       osm_data = std::move(*data);
   }
 
-  // TODO 1: get the user input for the route planning
   float start_x = get_user_input("start X");
   float start_y = get_user_input("start Y");
   float end_x = get_user_input("end X");
