@@ -1,13 +1,16 @@
-# Route Planning Project
+# Route Planning Project  - a module examination assignment for the NanoDegree C++ program
+![route-planning-screen-gif](./map.png)
 
-This repo contains the Route Planning Project created as the first examination project of the Udacity Nano Degree C++ Developer program/course.
+## Introduction
+
+This repo contains the Route Planning Project developed as the first examination project of the Udacity Nano Degree C++ Developer program/course.
 
 It allowes to plan a route from the assigned starting point to the assigned end point on any Open Street Map map file (.osm extension). The functionality can be tested without providing custom osm map.
 In such case the starter / example map is provided among all the files contained in the repo (map shown on the picture below).
 
 After starting the program in terminal, the user is propmted to provide the starting and end coordinates for the route plan, contained in the percentage range (0 - 100). 
 
-<img src="map.png" width="600" height="450" />
+
 
 ## Cloning
 
@@ -64,3 +67,6 @@ The testing executable is also placed in the `build` directory. From within `bui
 ./test
 ```
 
+## Disclaimer
+
+Some starter code was provided for the student (me). My task was to develop the program in order to incorporate A-star-search algorithm and combine everything together. 
